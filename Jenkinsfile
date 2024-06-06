@@ -51,5 +51,13 @@ pipeline {
                 }
             }
         }
+        stage ('Testes funcionais') {
+            steps {
+                dir('functional-test') {
+                    git branch: 'main', url: 'https://github.com/alessanderbotti/tasks-functional-test.git'
+                    sh 'mvn test'
+                }
+            }
+        }
     }
 }
