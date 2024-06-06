@@ -42,5 +42,14 @@ pipeline {
                 }
             }
         }
+        stage ('Implantação do frontend') {
+            steps {
+                dir('frontend') {
+                    git url: 'https://github.com/alessanderbotti/tasks-frontend.git'
+                    sh 'mvn clean package'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+            }
+        }
     }
 }
