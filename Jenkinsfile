@@ -59,5 +59,10 @@ pipeline {
                 }
             }
         }
+        stage ('Implantação em produção') {
+            steps {
+                sh 'docker-compose build'
+                sh 'docker-compose up -d'
+        }
     }
 }
