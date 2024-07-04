@@ -78,21 +78,6 @@
 					<destFile>${sonar.jacoco.reportPath}</destFile>
 				</configuration>
 			</plugin>
-
-			<!-- uses default configuration -->
-			<plugin>
-				<groupId>org.cyclonedx</groupId>
-				<artifactId>cyclonedx-maven-plugin</artifactId>
-				<version>2.8.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>makeAggregateBom</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 

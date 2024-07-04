@@ -37,7 +37,7 @@ pipeline {
         stage ('Testes de API') {
             steps {
                 dir('api-test') {
-                    git branch: 'main', url: 'https://github.com/alessanderbotti/tasks-api-test.git'
+                    git branch: 'main', credentialsId: 'ef3aa016-7687-4703-ad81-2262e79db02b', url: 'https://github.com/alessanderbotti/tasks-api-test.git'
                     sh 'mvn test'
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
         stage ('Implantação do frontend') {
             steps {
                 dir('frontend') {
-                    git url: 'https://github.com/alessanderbotti/tasks-frontend.git'
+                    git credentialsId: 'ef3aa016-7687-4703-ad81-2262e79db02b', url: 'https://github.com/alessanderbotti/tasks-frontend.git'
                     sh 'mvn clean package'
                     deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
                 }
@@ -54,7 +54,7 @@ pipeline {
         stage ('Testes funcionais') {
             steps {
                 dir('functional-test') {
-                    git branch: 'main', url: 'https://github.com/alessanderbotti/tasks-functional-test.git'
+                    git branch: 'main', credentialsId: 'ef3aa016-7687-4703-ad81-2262e79db02b', url: 'https://github.com/alessanderbotti/tasks-functional-test.git'
                     sh 'mvn test'
                 }
             }
