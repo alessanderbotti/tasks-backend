@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Análise de SBOM') {
             steps {
-                dependencyTrackPublisher artifact: 'target/bom.xml', synchronous: true
+                dependencyTrackPublisher artifact: 'target/bom.xml', synchronous: false
             }
         }
         stage ('Implantação do frontend') {
