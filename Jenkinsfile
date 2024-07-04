@@ -42,9 +42,9 @@ pipeline {
                 }
             }
         }
-        stage('Análise de SBOM') {
+        stage('Análise de SBOM do backend') {
             steps {
-                dependencyTrackPublisher artifact: 'target/bom.xml', synchronous: false
+                dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'tasks-backend', projectVersion: 'my-version', synchronous: true
             }
         }
         stage ('Implantação do frontend') {
