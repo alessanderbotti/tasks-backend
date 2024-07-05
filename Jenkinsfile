@@ -49,7 +49,7 @@ pipeline {
         }
         stage('Análise de políticas de licenciamento do SBOM do backend') {
             steps {
-                sh "VIOLATION_QUANTITY=$(curl -I -s --location 'http://localhost:8081/api/v1/violation/project/1aca3235-c410-4436-8553-d5b504bbbfe3?suppressed=true' --header 'Accept: application/json' --header 'X-Api-Key: odt_wRbdn2kfrLruLccwckaw29jZwirWzvH7' | awk '/X-Total-Count: / {print $2}'); if [[ $VIOLATION_QUANTITY != 0* ]]; then exit 1; fi;"
+                sh 'VIOLATION_QUANTITY=$(curl -I -s --location "http://localhost:8081/api/v1/violation/project/1aca3235-c410-4436-8553-d5b504bbbfe3?suppressed=true" --header "Accept: application/json" --header "X-Api-Key: odt_wRbdn2kfrLruLccwckaw29jZwirWzvH7" | awk "/X-Total-Count: / {print $2}"); if [[ $VIOLATION_QUANTITY != 0* ]]; then exit 1; fi;'
             }
         }
         stage ('Implantação do frontend') {
