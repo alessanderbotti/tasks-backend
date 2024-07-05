@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Análise de SBOM do backend') {
             steps {
-                dependencyTrackPublisher artifact: 'target/bom.xml', projectName: 'tasks-backend', projectVersion: 'my-version', synchronous: true
+                dependencyTrackPublisher artifact: 'target/bom.xml', synchronous: true, projectName: 'tasks-backend', projectVersion: 'my-version', unstableTotalCritical: 2, unstableTotalHigh: 2, unstableTotalLow: 2, unstableTotalMedium: 2, unstableTotalUnassigned: 2
             }
         }
         stage ('Implantação do frontend') {
@@ -62,6 +62,13 @@ pipeline {
                     git branch: 'main', credentialsId: 'ef3aa016-7687-4703-ad81-2262e79db02b', url: 'https://github.com/alessanderbotti/tasks-functional-test.git'
                     sh 'mvn test'
                 }
+            }
+        }
+        stage ('Remoção da versão antiga em produção') {
+            steps {
+                sh 'docker stop $(docker ps --filter name=.*end-prod -q)'
+                sh 'docker rm $(docker ps --all --filter name=.*end-prod -q)'
+                sh 'docker rmi $(docker images --filter=reference="*:build_*" -q)'
             }
         }
         stage ('Implantação em produção') {
