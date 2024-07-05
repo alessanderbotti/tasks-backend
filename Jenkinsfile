@@ -66,9 +66,9 @@ pipeline {
         }
         stage ('Remoção da versão antiga em produção') {
             steps {
-                sh 'docker stop $(docker ps --filter name=.*end-prod -q)'
-                sh 'docker rm $(docker ps --all --filter name=.*end-prod -q)'
-                sh 'docker rmi $(docker images --filter=reference="*:build_*" -q)'
+                sh 'CONTAINER_LIST=$(docker ps --filter name=.*end-prod -q); if [ -n "$CONTAINER_LIST" ]; then docker stop $CONTAINER_LIST; fi;'
+                sh 'CONTAINER_LIST=$(docker ps --all --filter name=.*end-prod -q); if [ -n "$CONTAINER_LIST" ]; then docker rm $CONTAINER_LIST; fi;'
+                sh 'IMAGE_LIST=$(docker images --filter=reference="*:build_*" -q); if [ -n "$IMAGE_LIST" ]; then docker rmi $IMAGE_LIST; fi;'
             }
         }
         stage ('Implantação em produção') {
