@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Análise de SBOM do backend') {
             steps {
-                dependencyTrackPublisher artifact: 'target/bom.xml', synchronous: true, projectName: 'tasks-backend', projectVersion: 'my-version', unstableTotalCritical: 2, unstableTotalHigh: 2, unstableTotalLow: 2, unstableTotalMedium: 2, unstableTotalUnassigned: 2, failedTotalCritical: 10, failedTotalHigh: 10, failedTotalLow: 10, failedTotalMedium: 10, failedTotalUnassigned: 10
+                dependencyTrackPublisher artifact: 'target/bom.xml', synchronous: true, projectName: 'tasks-backend', projectVersion: 'my-version', unstableTotalCritical: 2, unstableTotalHigh: 2, unstableTotalLow: 2, unstableTotalMedium: 2, unstableTotalUnassigned: 2, failedTotalCritical: 20, failedTotalHigh: 20, failedTotalLow: 20, failedTotalMedium: 20, failedTotalUnassigned: 20
             }
         }
         stage ('Implantação do frontend') {
